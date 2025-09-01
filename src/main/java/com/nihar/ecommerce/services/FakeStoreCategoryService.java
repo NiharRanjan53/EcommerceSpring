@@ -1,6 +1,7 @@
 package com.nihar.ecommerce.services;
 import com.nihar.ecommerce.dto.CategoryDTO;
 import com.nihar.ecommerce.gateway.ICategoryGateway;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,7 +12,8 @@ public class FakeStoreCategoryService implements ICategoryService {
 
     private final ICategoryGateway categoryGateway;
 
-    public FakeStoreCategoryService(ICategoryGateway categoryGateway){
+    public FakeStoreCategoryService(
+            @Qualifier("FakeStoreRestTemplateGateway") ICategoryGateway categoryGateway){
         this.categoryGateway = categoryGateway;
     }
 
