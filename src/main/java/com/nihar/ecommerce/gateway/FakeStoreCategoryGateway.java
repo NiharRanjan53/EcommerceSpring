@@ -3,6 +3,7 @@ package com.nihar.ecommerce.gateway;
 import com.nihar.ecommerce.dto.CategoryDTO;
 import com.nihar.ecommerce.dto.FakeStoreCategoryResponseDTO;
 import com.nihar.ecommerce.gateway.api.FakeStoreCategoryAPI;
+import com.nihar.ecommerce.mappers.GetAllCategoriesMapper;
 import com.nihar.ecommerce.services.FakeStoreCategoryService;
 import org.springframework.stereotype.Component;
 
@@ -23,11 +24,7 @@ public class FakeStoreCategoryGateway implements ICategoryGateway{
         if(response == null){
             throw  new IOException("Failed to fetch categories from FakeStore API.");
         }
-        return response.getCategories().stream()
-                .map(category -> CategoryDTO.builder()
-                        .name(category)
-                        .build())
-                .toList();
+        return GetAllCategoriesMapper.toCategoryDto(response);
 
     }
 }
