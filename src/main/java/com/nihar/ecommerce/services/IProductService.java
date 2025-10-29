@@ -7,5 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IProductService {
-    ProductDTO getProductById(Long id) throws IOException;
+    ProductDTO getProductById(Long id) throws Exception;
+
+    ProductDTO createProduct(ProductDTO dto);
 }

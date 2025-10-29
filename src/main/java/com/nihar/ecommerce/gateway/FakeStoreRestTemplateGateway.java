@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.List;
 
-@Component("FakeStoreRestTemplateGateway")
+@Component("fakeStoreRestTemplateGateway")
 public class FakeStoreRestTemplateGateway implements ICategoryGateway{
     private final RestTemplateBuilder restTemplateBuilder;
 
