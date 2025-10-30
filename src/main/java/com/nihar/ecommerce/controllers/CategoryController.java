@@ -20,13 +20,14 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> getAllCategories() throws IOException{
-        List<CategoryDTO> response = this.categoryService.getAllCategories();
+        List<CategoryDTO> response = categoryService.getAllCategories();
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO){
-        throw new UnsupportedOperationException("Method not implemented yet");
+        return ResponseEntity.ok(categoryService.createCategory(categoryDTO));
+
     }
 
 

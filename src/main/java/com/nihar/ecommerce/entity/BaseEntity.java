@@ -17,7 +17,7 @@ import java.time.Instant;
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

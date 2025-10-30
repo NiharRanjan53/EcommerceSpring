@@ -1,11 +1,14 @@
 package com.nihar.ecommerce.mappers;
 
 import com.nihar.ecommerce.dto.ProductDTO;
+import com.nihar.ecommerce.entity.Category;
 import com.nihar.ecommerce.entity.Product;
+
+import java.nio.channels.ScatteringByteChannel;
 
 public class ProductMapper {
     public static ProductDTO toDto(Product product){
-        return ProductDTO.builder()
+        return  ProductDTO.builder()
                 .id(product.getId())
                 .image(product.getImage())
                 .color(product.getColor())
@@ -14,7 +17,7 @@ public class ProductMapper {
                 .discount(product.getDiscount())
                 .model(product.getModel())
                 .title(product.getTitle())
-                .category(product.getCategory())
+                .categoryId(product.getCategory().getId())
                 .brand(product.getBrand())
                 .popular(product.isPopular())
                 .build();
@@ -22,7 +25,7 @@ public class ProductMapper {
 
     }
 
-    public static Product toEntity(ProductDTO dto){
+    public static Product toEntity(ProductDTO dto, Category category){
         return Product.builder()
                 .image(dto.getImage())
                 .color(dto.getColor())
@@ -31,7 +34,7 @@ public class ProductMapper {
                 .discount(dto.getDiscount())
                 .model(dto.getModel())
                 .title(dto.getTitle())
-                .category(dto.getCategory())
+                .category(category)
                 .brand(dto.getBrand())
                 .popular(dto.isPopular())
                 .build();

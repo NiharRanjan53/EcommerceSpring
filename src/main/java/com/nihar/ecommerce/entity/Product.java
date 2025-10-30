@@ -1,6 +1,8 @@
 package com.nihar.ecommerce.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 @Entity
@@ -17,7 +19,10 @@ public class Product extends BaseEntity {
     private int discount;
     private String model;
     private String title;
-    private String category;
     private String brand;
     private boolean popular;
+
+    @ManyToOne()
+    @JoinColumn(name = "categoryId", nullable = false)
+    private Category category;
 }
