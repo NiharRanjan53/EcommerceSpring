@@ -8,6 +8,9 @@ import com.nihar.ecommerce.repository.CategoryRepository;
 import com.nihar.ecommerce.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ProductService implements IProductService {
     private final ProductRepository repo;
@@ -18,6 +21,7 @@ public class ProductService implements IProductService {
         this.categoryRepository = categoryRepository;
     }
 
+    @Override
     public ProductDTO getProductById(Long id) throws Exception {
         return repo.findById(id)
                 .map(ProductMapper::toDto)
@@ -29,5 +33,11 @@ public class ProductService implements IProductService {
         Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new Exception("Category not found"));
         Product saved  =  repo.save(ProductMapper.toEntity(dto, category));
         return ProductMapper.toDto(saved);
+    }
+
+    @Override
+    public List<ProductDTO> getProductsByMinPrice(Double minPrice) {
+        List<Product> products= repo.findByPriceGreaterThan(minPrice);
+        return products.stream().map(ProductMapper::toDto).collect(Collectors.toList());
     }
 }

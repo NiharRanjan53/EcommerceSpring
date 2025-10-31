@@ -3,11 +3,13 @@ package com.nihar.ecommerce.controllers;
 import com.nihar.ecommerce.dto.CategoryDTO;
 import com.nihar.ecommerce.dto.ProductDTO;
 import com.nihar.ecommerce.services.IProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.List;
 
 @RestController
@@ -31,6 +33,28 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO dto) throws Exception{
         return ResponseEntity.ok(productService.createProduct(dto));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getProductsAboveMinPrice(@RequestParam(required = true) Double minPrice){
+        // Validation checks
+        if (minPrice != null) {
+            if (minPrice < 0) {
+                throw new InvalidParameterException("minPrice cannot be negative.");
+            }
+
+            List<ProductDTO> products = productService.getProductsByMinPrice(minPrice);
+
+            if (products.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No products found above price: " + minPrice);
+            }
+
+            return ResponseEntity.ok(products);
+        } else {
+            throw new InvalidParameterException("minPrice parameter is required.");
+        }
+
     }
 
 }

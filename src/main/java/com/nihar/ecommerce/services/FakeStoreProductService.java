@@ -5,6 +5,7 @@ import com.nihar.ecommerce.gateway.IProductGateway;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class FakeStoreProductService implements IProductService{
@@ -20,6 +21,10 @@ public class FakeStoreProductService implements IProductService{
     }
 
     public ProductDTO createProduct(ProductDTO dto) {
+        return null;
+    }
+
+    public List<ProductDTO> getProductsByMinPrice(Double minPrice) {
         return null;
     }
 }
