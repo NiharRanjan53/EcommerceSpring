@@ -5,7 +5,6 @@ import com.nihar.ecommerce.dto.ProductWithCategoryDTO;
 import com.nihar.ecommerce.gateway.IProductGateway;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -17,7 +16,7 @@ public class FakeStoreProductService implements IProductService{
     }
 
     @Override
-    public ProductDTO getProductById(Long id) throws Exception {
+    public ProductDTO getProductById(Long id){
         return productGateway.getProductById(id);
     }
 
@@ -33,7 +32,7 @@ public class FakeStoreProductService implements IProductService{
         return null;
     }
 
-    public ProductWithCategoryDTO getProductWithCategory(long id) throws Exception {
+    public ProductWithCategoryDTO getProductWithCategory(long id){
         return null;
     }
 }

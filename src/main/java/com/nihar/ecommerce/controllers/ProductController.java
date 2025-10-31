@@ -1,6 +1,5 @@
 package com.nihar.ecommerce.controllers;
 
-import com.nihar.ecommerce.dto.CategoryDTO;
 import com.nihar.ecommerce.dto.ProductDTO;
 import com.nihar.ecommerce.dto.ProductWithCategoryDTO;
 import com.nihar.ecommerce.services.IProductService;
@@ -8,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
 
@@ -24,9 +21,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO>getProductById(@PathVariable Long id) throws Exception{
+    public ResponseEntity<ProductDTO>getProductById(@PathVariable Long id){
         ProductDTO result = this.productService.getProductById(id);
-
         return ResponseEntity.ok(result);
 
     }
@@ -67,7 +63,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/details")
-    public ResponseEntity<ProductWithCategoryDTO> getProductWithCategory(@PathVariable Long id) throws Exception {
+    public ResponseEntity<ProductWithCategoryDTO> getProductWithCategory(@PathVariable Long id){
         ProductWithCategoryDTO result = productService.getProductWithCategory(id);
         return ResponseEntity.ok(result);
     }
