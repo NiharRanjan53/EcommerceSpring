@@ -2,6 +2,7 @@ package com.nihar.ecommerce.controllers;
 
 import com.nihar.ecommerce.dto.CategoryDTO;
 import com.nihar.ecommerce.dto.ProductDTO;
+import com.nihar.ecommerce.dto.ProductWithCategoryDTO;
 import com.nihar.ecommerce.services.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.createProduct(dto));
     }
 
-    @GetMapping
+    @GetMapping(params = "minPrice")
     public ResponseEntity<?> getProductsAboveMinPrice(@RequestParam(required = true) Double minPrice){
         // Validation checks
         if (minPrice != null) {
@@ -55,6 +56,20 @@ public class ProductController {
             throw new InvalidParameterException("minPrice parameter is required.");
         }
 
+    }
+    @GetMapping(params = "keyword")
+    public ResponseEntity<List<ProductDTO>> getProductsByKeyword(@RequestParam(required = true) String keyword) {
+        if (keyword == null || keyword.isBlank()) {
+            throw new InvalidParameterException("Keyword cannot be empty.");
+        }
+        List<ProductDTO> products = productService.getProductsByKeyword(keyword);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/{id}/details")
+    public ResponseEntity<ProductWithCategoryDTO> getProductWithCategory(@PathVariable Long id) throws Exception {
+        ProductWithCategoryDTO result = productService.getProductWithCategory(id);
+        return ResponseEntity.ok(result);
     }
 
 }

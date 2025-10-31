@@ -1,6 +1,7 @@
 package com.nihar.ecommerce.mappers;
 
 import com.nihar.ecommerce.dto.ProductDTO;
+import com.nihar.ecommerce.dto.ProductWithCategoryDTO;
 import com.nihar.ecommerce.entity.Category;
 import com.nihar.ecommerce.entity.Product;
 
@@ -39,4 +40,24 @@ public class ProductMapper {
                 .popular(dto.isPopular())
                 .build();
     }
+
+    public static ProductWithCategoryDTO toProductWithCategoryDto(Product product){
+        return  ProductWithCategoryDTO.builder()
+                .id(product.getId())
+                .image(product.getImage())
+                .color(product.getColor())
+                .price(product.getPrice())
+                .description(product.getDescription())
+                .discount(product.getDiscount())
+                .model(product.getModel())
+                .title(product.getTitle())
+                .category(CategoryMapper.toDto(product.getCategory()))
+                .brand(product.getBrand())
+                .popular(product.isPopular())
+                .build();
+
+
+    }
+
+
 }

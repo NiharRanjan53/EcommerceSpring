@@ -17,7 +17,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByPriceGreaterThan(@Param("minPrice") double minPrice);
 
     //Full-Text Search using MySQL’s MATCH ... AGAINST syntax — wrapped inside a Spring Data JPA custom query.
-    @Query(value="Select * FROM product WHERE MATCH(name, description) AGAINST (:keyword)", nativeQuery = true)
+    @Query(value="Select * FROM product WHERE MATCH(title, description) AGAINST (:keyword)", nativeQuery = true)
     List<Product> searchFullText(@Param("keyword") String keyword);
+
+    //:minPrice < "minPrice" in @Param("minPrice")
+    //:brand < "brand" in @Param("brand")
+    @Query("Select p from Product p WHERE p.price > :minPrice AND p.brand = :brand")
+    List<Product> findByBrandAndPrice(
+            @Param("minPrice") int price,
+            @Param("brand") String brandName
+    );
+
 
 }

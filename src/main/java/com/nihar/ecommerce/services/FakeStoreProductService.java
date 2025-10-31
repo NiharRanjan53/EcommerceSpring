@@ -1,6 +1,7 @@
 package com.nihar.ecommerce.services;
 
 import com.nihar.ecommerce.dto.ProductDTO;
+import com.nihar.ecommerce.dto.ProductWithCategoryDTO;
 import com.nihar.ecommerce.gateway.IProductGateway;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,14 @@ public class FakeStoreProductService implements IProductService{
     }
 
     public List<ProductDTO> getProductsByMinPrice(Double minPrice) {
+        return null;
+    }
+
+    public List<ProductDTO> getProductsByKeyword(String keyword) {
+        return null;
+    }
+
+    public ProductWithCategoryDTO getProductWithCategory(long id) throws Exception {
         return null;
     }
 }
