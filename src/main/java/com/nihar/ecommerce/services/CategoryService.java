@@ -1,14 +1,18 @@
 package com.nihar.ecommerce.services;
 
+import com.nihar.ecommerce.dto.AllProductsOfCategoryDTO;
 import com.nihar.ecommerce.dto.CategoryDTO;
+import com.nihar.ecommerce.dto.ProductDTO;
 import com.nihar.ecommerce.entity.Category;
 import com.nihar.ecommerce.mappers.CategoryMapper;
+import com.nihar.ecommerce.mappers.ProductMapper;
 import com.nihar.ecommerce.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService implements ICategoryService {
@@ -37,5 +41,22 @@ public class CategoryService implements ICategoryService {
     public CategoryDTO getByName(String name) throws Exception {
         Category category =  repo.findByName(name).orElseThrow(() -> new Exception("Category not found with name " + name));
         return CategoryMapper.toDto(category);
+    }
+
+    @Override
+    public AllProductsOfCategoryDTO getAllProductsOfCategory(Long categoryId) throws Exception {
+        Category category = repo.findById(categoryId)
+                .orElseThrow(() -> new Exception("Category not found with category id: " + categoryId));
+
+        List<ProductDTO> productDTOS = category.getProducts()
+                                        .stream()
+                                        .map(product -> ProductMapper.toDto(product))
+                                        .collect(Collectors.toList());
+
+        return AllProductsOfCategoryDTO.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .products(productDTOS)
+                .build();
     }
 }

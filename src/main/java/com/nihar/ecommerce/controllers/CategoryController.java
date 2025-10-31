@@ -1,5 +1,6 @@
 package com.nihar.ecommerce.controllers;
 
+import com.nihar.ecommerce.dto.AllProductsOfCategoryDTO;
 import com.nihar.ecommerce.dto.CategoryDTO;
 import com.nihar.ecommerce.services.ICategoryService;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,13 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.createCategory(categoryDTO));
 
     }
+
+    @GetMapping("/{categoryId}/products")
+    public ResponseEntity<AllProductsOfCategoryDTO>  getAllProductsOfCategory(@PathVariable Long categoryId) throws  Exception{
+        AllProductsOfCategoryDTO dto = categoryService.getAllProductsOfCategory(categoryId);
+        return ResponseEntity.ok(dto);
+    }
+
 
 
 

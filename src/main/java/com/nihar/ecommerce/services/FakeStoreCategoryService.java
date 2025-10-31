@@ -1,4 +1,5 @@
 package com.nihar.ecommerce.services;
+import com.nihar.ecommerce.dto.AllProductsOfCategoryDTO;
 import com.nihar.ecommerce.dto.CategoryDTO;
 import com.nihar.ecommerce.gateway.ICategoryGateway;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,6 +30,10 @@ public class FakeStoreCategoryService implements ICategoryService {
     }
 
     public CategoryDTO getByName(String name) throws Exception {
+        return null;
+    }
+
+    public AllProductsOfCategoryDTO getAllProductsOfCategory(Long categoryId) throws Exception {
         return null;
     }
 }
