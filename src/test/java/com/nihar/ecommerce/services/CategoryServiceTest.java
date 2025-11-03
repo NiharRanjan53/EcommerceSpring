@@ -3,6 +3,7 @@ package com.nihar.ecommerce.services;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
+import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -30,13 +31,14 @@ public class CategoryServiceTest {
     @InjectMocks
     private CategoryService categoryService;
 
-
+    private CategoryDTO categoryDTO;
     private Category category1;
     private Category category2;
     private Category category3;
 
     @BeforeEach
     void setUp() {
+        categoryDTO = CategoryDTO.builder().name("Electronics").build();
         category1 = Category.builder().name("Electronics").build();
         category1.setId(1L);
         category2 = Category.builder().name("Books").build();
@@ -67,6 +69,22 @@ public class CategoryServiceTest {
     }
 
     @Test
+    @DisplayName("Should create a new category successfully")
+    void createCategory_shouldCreateCategorySuccessfully() {
+        // Arrange
+        when(categoryRepository.save(any(Category.class))).thenReturn(category1);
+
+        // Act
+        CategoryDTO result = categoryService.createCategory(categoryDTO);
+
+        // Assert
+        assertEquals(result.getName(), "Electronics");
+        verify(categoryRepository, times(1)).save(any(Category.class));
+
+
+    }
+
+    @Test
     @DisplayName("Should return category by name")
     void getByName_shouldReturnCategoryByName() throws Exception {
         // Arrange
@@ -80,4 +98,5 @@ public class CategoryServiceTest {
         verify(categoryRepository, times(1)).findByName("Electronics");
 
     }
+
 }
