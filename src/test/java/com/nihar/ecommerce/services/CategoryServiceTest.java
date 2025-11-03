@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.nihar.ecommerce.dto.CategoryDTO;
 import com.nihar.ecommerce.entity.Category;
 import com.nihar.ecommerce.repository.CategoryRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,35 +30,45 @@ public class CategoryServiceTest {
     @InjectMocks
     private CategoryService categoryService;
 
+
+    private Category category1;
+    private Category category2;
+    private Category category3;
+
+    @BeforeEach
+    void setUp() {
+        category1 = Category.builder().name("Electronics").build();
+        category1.setId(1L);
+        category2 = Category.builder().name("Books").build();
+        category2.setId(2L);
+        category3 = Category.builder().name("Clothing").build();
+        category3.setId(3L);
+
+    }
+
     @Test
     @DisplayName("Should return all categories successfully")
     void getAllCategories_shouldReturnAllCategories() throws IOException {
         // Arrange
         List<Category> categories = new ArrayList<>();
-        Category category1 = Category.builder().name("Electronics").build();
-        category1.setId(1L);
-        Category category2 = Category.builder().name("Books").build();
-        category2.setId(2L);
 
         categories.add(category1);
         categories.add(category2);
+        categories.add(category3);
 
-        when(categoryRepository.findAll()).thenReturn(categories);
+        when(categoryRepository.findAll()).thenReturn(categories);  // mocked the repository to return the categories
 
         // Act
-        List<CategoryDTO> result = categoryService.getAllCategories();
+        List<CategoryDTO> result = categoryService.getAllCategories();  // service is actually really called
 
         // Assert
-        assertEquals(result.size(), 2);
+        assertEquals(result.size(), 3);
 
     }
 
     @Test
     @DisplayName("Should return category by name")
     void getByName_shouldReturnCategoryByName() throws Exception {
-        Category category1 = Category.builder().name("Electronics").build();
-        category1.setId(1L);
-
         // Arrange
         when(categoryRepository.findByName("Electronics")).thenReturn(Optional.of(category1));
 
